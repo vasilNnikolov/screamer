@@ -1,5 +1,6 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
+#include <avr/wdt.h>
 #include <avr/sleep.h>
 #include <util/delay.h>
 #define LED_PIN 0 //pb0
@@ -30,6 +31,17 @@ void dischargeCapacitor(){
 void enterSleep(){  
     MCUCR |= (1 << SM1); // sets powerdown mode
     MCUCR |= (1 << SE); // enables sleep
+
+    wdt_disable(); //disables the watchdog timer
+
+    //disable other useless peripherals
+    ADCSRB &= ~(1 << ADEN); //disables the ADC
+
+    //perhaps disable port pins???
+
+    //disable BOD
+    MCUCR |= (1 << BODSE) | (1 << BODS);
+    MCUCR &= ~(1 << BODSE);
     sleep_cpu();
 }
 
@@ -42,12 +54,6 @@ ISR(PCINT0_vect) {
     enterSleep();
 }
 
-
-/*
-void wakeUp(){
-
-}
-*/
 
 int main(){
     _delay_ms(2000); // to debounce power supply
