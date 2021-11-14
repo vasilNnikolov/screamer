@@ -27,6 +27,11 @@ void dischargeCapacitor(){
     setPCINT();
 }
 
+void enterSleep(){  
+    MCUCR |= (1 << SM1); // sets powerdown mode
+    MCUCR |= (1 << SE); // enables sleep
+    sleep_cpu();
+}
 
 ISR(PCINT0_vect) {
     for(unsigned char j=0; j < 20; j++){
@@ -34,7 +39,15 @@ ISR(PCINT0_vect) {
         _delay_ms(300);
     }
     dischargeCapacitor();
+    enterSleep();
 }
+
+
+/*
+void wakeUp(){
+
+}
+*/
 
 int main(){
     _delay_ms(2000); // to debounce power supply
@@ -44,6 +57,7 @@ int main(){
     PORTB ^= (1 << LED_PIN);
 
     setPCINT();    
+    enterSleep();
     while(1){
     }
 }
