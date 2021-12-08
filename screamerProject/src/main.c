@@ -4,9 +4,12 @@
 #include <avr/sleep.h>
 #include <util/delay.h>
 #define LED_PIN 0 //pb0
+#define NPN_TRANSISTOR_BASE_PIN 1// pb1
 #define INTERRUPT_PIN 2// pb2, interrupt pin
 
 void setPCINT(){
+    DDRB &= ~(1 << NPN_TRANSISTOR_BASE_PIN); //set npn base pin to input
+    PORTB &= ~(1 << NPN_TRANSISTOR_BASE_PIN); //removes pullup resistor from the npn base pin
     //setup PCINT on INTERRUPT_PIN
     DDRB &= ~(1 << INTERRUPT_PIN); // sets interrupt_pin as input
     PORTB &= ~(1 << INTERRUPT_PIN); //removes pullup resistor from the interrupt pin
@@ -20,10 +23,13 @@ void dischargeCapacitor(){
     
     GIMSK &= ~(1 << PCIE);
     PCMSK &= ~(1 << INTERRUPT_PIN);//totally removes pcint settings, otherwise another interrupt fires after discharge
+
+    DDRB |= 1 << NPN_TRANSISTOR_BASE_PIN; //turn base pin to output
+    PORTB &= ~(1 << NPN_TRANSISTOR_BASE_PIN); //turn off base pin to turn off npn transistor
     
     DDRB |= 1 << INTERRUPT_PIN; //turn interrupt pin to output
     PORTB &= ~(1 << INTERRUPT_PIN); //turn interrupt pin off, to discharge the capacitor
-    _delay_ms(1000);
+    _delay_ms(20);
 
     setPCINT();
 }
@@ -35,7 +41,18 @@ void enterSleep(){
     wdt_disable(); //disables the watchdog timer
 
     //disable other useless peripherals
+
+    /* -------TURN OFF ADC---------*/
     ADCSRB &= ~(1 << ADEN); //disables the ADC
+    PRR |= 1 << PRADC; //shuts down adc
+
+    /*--------TURN OF USI??? idk what that is-----------*/
+    PRR |= 1 << PRUSI; //shuts down USI 
+
+    /*--------TURN OFF POWER REDUCTION TIMER 0 AND 1 ---------*/
+
+    PRR |= (1 << PRTIM0) | (1 << PRTIM0); //shuts down timers 
+
 
     //perhaps disable port pins???
 
@@ -57,6 +74,8 @@ ISR(PCINT0_vect) {
 
 int main(){
     _delay_ms(2000); // to debounce power supply
+
+    //flash the led to indicate the circuit has started working
     DDRB |= 1 << LED_PIN;
     PORTB ^= (1 << LED_PIN);
     _delay_ms(500);
