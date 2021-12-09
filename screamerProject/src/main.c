@@ -3,9 +3,14 @@
 #include <avr/wdt.h>
 #include <avr/sleep.h>
 #include <util/delay.h>
+
+#include "utilities.h"
 #define LED_PIN 0 //pb0
 #define NPN_TRANSISTOR_BASE_PIN 1// pb1
 #define INTERRUPT_PIN 2// pb2, interrupt pin
+#define TIME_INTERVAL 15 // the external time interval in seconds
+
+volatile unsigned int seed;
 
 void setPCINT(){
     DDRB &= ~(1 << NPN_TRANSISTOR_BASE_PIN); //set npn base pin to input
@@ -29,7 +34,7 @@ void dischargeCapacitor(){
     
     DDRB |= 1 << INTERRUPT_PIN; //turn interrupt pin to output
     PORTB &= ~(1 << INTERRUPT_PIN); //turn interrupt pin off, to discharge the capacitor
-    _delay_ms(20);
+    _delay_ms(100); //discharge capacitor during this time
 
     setPCINT();
 }
@@ -63,10 +68,17 @@ void enterSleep(){
 }
 
 ISR(PCINT0_vect) {
-    for(unsigned char j=0; j < 20; j++){
-        PORTB ^= (1 << LED_PIN);
-        _delay_ms(300);
+    if(getRandomInteger(&seed) % 2 == 0){
+        for(unsigned char j=0; j < 20; j++){
+            PORTB ^= (1 << LED_PIN);
+            _delay_ms(300);
+        }
     }
+    else
+    {
+        _delay_ms(2000);
+    }
+    
     dischargeCapacitor();
     enterSleep();
 }
@@ -74,6 +86,7 @@ ISR(PCINT0_vect) {
 
 int main(){
     _delay_ms(2000); // to debounce power supply
+    seed = 6969;
 
     //flash the led to indicate the circuit has started working
     DDRB |= 1 << LED_PIN;
