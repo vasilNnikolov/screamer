@@ -6,3 +6,7 @@ unsigned int getRandomInteger(unsigned int* seed){
     *seed = (a * (*seed)) % m;
     return (unsigned int)(*seed);
 }
+
+void beep(){
+    
+}

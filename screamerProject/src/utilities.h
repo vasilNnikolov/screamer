@@ -3,4 +3,5 @@
 
 unsigned int getRandomInteger(unsigned int* seed);
 
+void beep();
 #endif
