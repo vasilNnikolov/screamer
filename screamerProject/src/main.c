@@ -71,7 +71,6 @@ ISR(PCINT0_vect) {
     {
         _delay_ms(2000);
     }
-    
     dischargeCapacitor();
     enterSleep();
 }
@@ -82,10 +81,10 @@ int main(){
     seed = 6969;
 
     //flash the led to indicate the circuit has started working
-    DDRB |= 1 << LED_PIN;
-    PORTB ^= (1 << LED_PIN);
+    DDRB |= (1 << BEEP_PIN_1);
+    PORTB ^= (1 << BEEP_PIN_1);
     _delay_ms(1000);
-    PORTB ^= (1 << LED_PIN);
+    PORTB ^= (1 << BEEP_PIN_1);
 
     setPCINT();    
     enterSleep();
