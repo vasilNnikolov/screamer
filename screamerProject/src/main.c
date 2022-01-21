@@ -30,7 +30,7 @@ void dischargeCapacitor(){
     
     DDRB |= 1 << INTERRUPT_PIN; //turn interrupt pin to output
     PORTB &= ~(1 << INTERRUPT_PIN); //turn interrupt pin off, to discharge the capacitor
-    _delay_ms(100); //discharge capacitor during this time
+    _delay_ms(1000); //discharge capacitor during this time
 
     setPCINT();
 }
@@ -65,10 +65,7 @@ void enterSleep(){
 
 ISR(PCINT0_vect) {
     if(getRandomInteger(&seed) % 2 == 0){
-        for(unsigned char j=0; j < 20; j++){
-            PORTB ^= (1 << LED_PIN);
-            _delay_ms(300);
-        }
+        beep();
     }
     else
     {
@@ -87,7 +84,7 @@ int main(){
     //flash the led to indicate the circuit has started working
     DDRB |= 1 << LED_PIN;
     PORTB ^= (1 << LED_PIN);
-    _delay_ms(500);
+    _delay_ms(1000);
     PORTB ^= (1 << LED_PIN);
 
     setPCINT();    
