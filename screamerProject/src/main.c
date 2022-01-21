@@ -9,13 +9,14 @@
 volatile unsigned int seed;
 
 void setPCINT(){
-    DDRB &= ~(1 << NPN_TRANSISTOR_BASE_PIN); //set npn base pin to input
-    PORTB &= ~(1 << NPN_TRANSISTOR_BASE_PIN); //removes pullup resistor from the npn base pin
     //setup PCINT on INTERRUPT_PIN
     DDRB &= ~(1 << INTERRUPT_PIN); // sets interrupt_pin as input
     PORTB &= ~(1 << INTERRUPT_PIN); //removes pullup resistor from the interrupt pin
     GIMSK |= (1 << PCIE);
     PCMSK |= (1 << INTERRUPT_PIN);
+
+    DDRB &= ~(1 << NPN_TRANSISTOR_BASE_PIN); //set npn base pin to input
+    PORTB &= ~(1 << NPN_TRANSISTOR_BASE_PIN); //removes pullup resistor from the npn base pin
     sei(); //enables interrupts globally
 }
 
@@ -81,10 +82,10 @@ int main(){
     seed = 6969;
 
     //flash the led to indicate the circuit has started working
-    DDRB |= (1 << BEEP_PIN_1);
-    PORTB ^= (1 << BEEP_PIN_1);
+    DDRB |= (1 << BEEP_PIN_1) | (1 << BEEP_PIN_2);
+    PORTB ^= (1 << BEEP_PIN_1) | (1 << BEEP_PIN_2);
     _delay_ms(1000);
-    PORTB ^= (1 << BEEP_PIN_1);
+    PORTB ^= (1 << BEEP_PIN_1) | (1 << BEEP_PIN_2);
 
     setPCINT();    
     enterSleep();

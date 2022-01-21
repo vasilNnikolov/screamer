@@ -16,7 +16,7 @@ unsigned int getRandomInteger(unsigned int* seed){
 
 void beep(){
     for(short i = 0; i < 10; i++){
-        PORTB ^= (1 << BEEP_PIN_1);
+        PORTB ^= (1 << BEEP_PIN_1) | (1 << BEEP_PIN_2);
         _delay_ms(500);
     }    
 }
