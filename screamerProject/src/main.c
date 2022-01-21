@@ -65,7 +65,6 @@ void enterSleep(){
 
 ISR(PCINT0_vect) {
     if(getRandomInteger(&seed) % 2 == 0){
-        // some useless coment
         beep();
     }
     else
