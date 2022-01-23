@@ -67,7 +67,8 @@ ISR(PCINT0_vect) {
     if(periods_left == 0){
         beep();
         // pick next time to beep
-        periods_left = 60*getRandomInteger(&seed)*AVERAGE_TIME_BETWEEN_BEEPS_M/(255*TIME_INTERVAL);
+        // periods_left = 60*getRandomInteger(&seed)*AVERAGE_TIME_BETWEEN_BEEPS_M/(255*TIME_INTERVAL);
+        periods_left = 0;
     }
     else{
         periods_left--;

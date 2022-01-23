@@ -8,5 +8,7 @@
 #define TIME_INTERVAL 15 // the external time interval in seconds
 #define AVERAGE_TIME_BETWEEN_BEEPS_M 2 //average time between the beeps in minutes 
 #define INITIAL_QUIET_PERIOD_DAYS 0
+#define BEEP_TIME_ON 100 //time of one beep in ms
+#define BEEP_TIME_OFF 500 //time between beeps in ms
 
 #endif
