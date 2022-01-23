@@ -6,5 +6,7 @@
 #define NPN_TRANSISTOR_BASE_PIN 1// pb1
 #define INTERRUPT_PIN 2// pb2, interrupt pin
 #define TIME_INTERVAL 15 // the external time interval in seconds
+#define AVERAGE_TIME_BETWEEN_BEEPS_M 2 //average time between the beeps in minutes 
+#define INITIAL_QUIET_PERIOD_DAYS 0
 
 #endif

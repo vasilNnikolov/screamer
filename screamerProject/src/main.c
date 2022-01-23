@@ -6,7 +6,6 @@
 
 #include "utilities.h"
 #include "projectConstants.h"
-volatile unsigned int seed;
 
 void setPCINT(){
     //setup PCINT on INTERRUPT_PIN
@@ -65,14 +64,13 @@ void enterSleep(){
 }
 
 ISR(PCINT0_vect) {
-    // unsigned int i = getRandomInteger(&seed);
-    unsigned int i = 0;
-    if(i % 2 == 0){
+    if(periods_left == 0){
         beep();
+        // pick next time to beep
+        periods_left = 60*getRandomInteger(&seed)*AVERAGE_TIME_BETWEEN_BEEPS_M/(255*TIME_INTERVAL);
     }
-    else
-    {
-        _delay_ms(2000);
+    else{
+        periods_left--;
     }
     dischargeCapacitor();
     enterSleep();
@@ -86,9 +84,10 @@ int main(){
     //flash the led to indicate the circuit has started working
     DDRB |= (1 << BEEP_PIN_1) | (1 << BEEP_PIN_2);
     PORTB ^= (1 << BEEP_PIN_1) | (1 << BEEP_PIN_2);
-    _delay_ms(1000);
+    _delay_ms(4000);
     PORTB ^= (1 << BEEP_PIN_1) | (1 << BEEP_PIN_2);
 
+    periods_left = (unsigned int)(INITIAL_QUIET_PERIOD_DAYS*24*3600/TIME_INTERVAL) + 1;
     setPCINT();    
     enterSleep();
     while(1){
