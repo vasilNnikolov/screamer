@@ -67,11 +67,11 @@ ISR(PCINT0_vect) {
     if(periods_left == 0){
         beep();
         // pick next time to beep
-        // periods_left = 60*getRandomInteger(&seed)*AVERAGE_TIME_BETWEEN_BEEPS_M/(255*TIME_INTERVAL);
-        periods_left = 0;
+        periods_left =(unsigned int)(60*getRandomInteger(&seed)*AVERAGE_TIME_BETWEEN_BEEPS_M/(255*TIME_INTERVAL));
     }
     else{
         periods_left--;
+        _delay_ms(100);
     }
     dischargeCapacitor();
     enterSleep();
@@ -88,7 +88,7 @@ int main(){
     _delay_ms(4000);
     PORTB ^= (1 << BEEP_PIN_1) | (1 << BEEP_PIN_2);
 
-    periods_left = (unsigned int)(INITIAL_QUIET_PERIOD_DAYS*24*3600/TIME_INTERVAL) + 1;
+    periods_left = (unsigned int)(INITIAL_QUIET_PERIOD_DAYS*24*3600/TIME_INTERVAL);
     setPCINT();    
     enterSleep();
     while(1){
