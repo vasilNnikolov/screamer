@@ -68,11 +68,12 @@ ISR(PCINT0_vect) {
         beep();
         // pick next time to beep
         periods_left =(unsigned int)(60*getRandomInteger(&seed)*AVERAGE_TIME_BETWEEN_BEEPS_M/(255*TIME_INTERVAL));
+    } 
+    else if(periods_left > 0){
+            periods_left--;
+            _delay_ms(100);
     }
-    else{
-        periods_left--;
-        _delay_ms(100);
-    }
+    else{periods_left = 0;}
     dischargeCapacitor();
     enterSleep();
 }
@@ -80,9 +81,9 @@ ISR(PCINT0_vect) {
 
 int main(){
     _delay_ms(2000); // to debounce power supply
-    seed = 6969;
+    seed = 69;
 
-    //flash the led to indicate the circuit has started working
+    //beep to indicate the circuit has started working
     DDRB |= (1 << BEEP_PIN_1) | (1 << BEEP_PIN_2);
     PORTB ^= (1 << BEEP_PIN_1) | (1 << BEEP_PIN_2);
     _delay_ms(4000);

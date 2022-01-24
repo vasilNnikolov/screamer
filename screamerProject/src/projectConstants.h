@@ -8,7 +8,7 @@
 #define INTERRUPT_PIN 2// pb2, interrupt pin
 
 // timing settings
-#define TIME_INTERVAL 15 // the time interval of the external clock in seconds 
+#define TIME_INTERVAL 22 // the time interval of the external clock in seconds 
 #define AVERAGE_TIME_BETWEEN_BEEPS_M 2 //average time between the beeps in minutes 
 #define INITIAL_QUIET_PERIOD_DAYS 0
 #define BEEP_TIME_ON 50 //time of one beep in ms
