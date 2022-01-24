@@ -7,6 +7,7 @@
 #include "utilities.h"
 #include "projectConstants.h"
 
+unsigned int periods_left;
 void setPCINT(){
     //setup PCINT on INTERRUPT_PIN
     DDRB &= ~(1 << INTERRUPT_PIN); // sets interrupt_pin as input
@@ -64,24 +65,23 @@ void enterSleep(){
 }
 
 ISR(PCINT0_vect) {
+    dischargeCapacitor();
     if(periods_left == 0){
         beep();
         // pick next time to beep
-        periods_left =(unsigned int)(60*getRandomInteger(&seed)*AVERAGE_TIME_BETWEEN_BEEPS_M/(255*TIME_INTERVAL));
+        periods_left =(unsigned int)(60*getRandomInteger()*AVERAGE_TIME_BETWEEN_BEEPS_M/(255*TIME_INTERVAL));
     } 
     else if(periods_left > 0){
             periods_left--;
             _delay_ms(100);
     }
     else{periods_left = 0;}
-    dischargeCapacitor();
     enterSleep();
 }
 
 
 int main(){
     _delay_ms(2000); // to debounce power supply
-    seed = 69;
 
     //beep to indicate the circuit has started working
     DDRB |= (1 << BEEP_PIN_1) | (1 << BEEP_PIN_2);

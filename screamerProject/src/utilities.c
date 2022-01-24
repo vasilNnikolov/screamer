@@ -7,13 +7,13 @@
 #include "utilities.h"
 #include "projectConstants.h"
 
-volatile unsigned int seed, periods_left;
+unsigned int seed = 69;
 
-unsigned int getRandomInteger(unsigned int* seed){
+unsigned int getRandomInteger(){
     unsigned int a = 1687;
     unsigned int m = 257;
-    *seed = (a * (*seed)) % m;
-    return (unsigned int)(*seed);
+    seed = (a * seed) % m;
+    return seed;
 }
 
 void beep(){
