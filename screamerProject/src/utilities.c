@@ -2,14 +2,14 @@
 #include "projectConstants.h"
 
 void setupInterrupt(){
-    SREG |= (1 << SREG_I); 
+    sei();
     GIMSK |= (1 << PCIE);
     PCMSK |= (1 << INTERRUPT_PIN);
 }
 
 void goToSleep(){
-    MCUCR |= (1 << SM1); // selecting power down
-    MCUCR |= (1 << SE); //sleep enable
+    set_sleep_mode(SLEEP_MODE_PWR_DOWN);
+    sleep_enable();
     sleep_cpu();
 }
 
