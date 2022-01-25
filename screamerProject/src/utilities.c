@@ -30,7 +30,7 @@ void dischargeCapacitor(){
 }
 
 void beep(){
-    short n_beeps = 5;
+    short n_beeps = 1;
     while(n_beeps > 0){
         PORTB |= (1 << BEEP_PIN_1) | (1 << BEEP_PIN_2);
         _delay_ms(BEEP_TIME_ON);
