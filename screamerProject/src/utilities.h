@@ -10,4 +10,8 @@
 void setupInterrupt();
 
 void goToSleep();
+
+void dischargeCapacitor();
+
+void beep();
 #endif

@@ -24,8 +24,24 @@ void dischargeCapacitor(){
     
     DDRB &= ~(1 << INTERRUPT_PIN); //make interrupt pin input
     PORTB &= ~(1 << INTERRUPT_PIN); //disables pullup resistor on interrupt pin
+
+    // enable pcint
+    GIMSK |= (1 << PCIE);
+}
+
+void beep(){
+    short n_beeps = 5;
+    while(n_beeps > 0){
+        PORTB |= (1 << BEEP_PIN_1) | (1 << BEEP_PIN_2);
+        _delay_ms(BEEP_TIME_ON);
+        PORTB &= ~((1 << BEEP_PIN_1) | (1 << BEEP_PIN_2));
+        _delay_ms(BEEP_TIME_OFF);
+        n_beeps--;
+    }
 }
 
 ISR(PCINT0_vect){
-
+    dischargeCapacitor();
+    beep();
+    goToSleep();
 }
