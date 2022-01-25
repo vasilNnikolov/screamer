@@ -47,6 +47,7 @@ void beep(){
 }
 
 ISR(PCINT0_vect){
+    // it restarted for some reason
     dischargeCapacitor();
     beep();
     goToSleep();
