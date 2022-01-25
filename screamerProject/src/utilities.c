@@ -17,16 +17,22 @@ void dischargeCapacitor(){
     //disable pcint
     GIMSK &= ~(1 << PCIE);
 
+    DDRB |= (1 << NPN_TRANSISTOR_BASE_PIN);
+    PORTB &= ~(1 << NPN_TRANSISTOR_BASE_PIN);
+
     DDRB |= (1 << INTERRUPT_PIN); // make interrupt pin output
-    PORTB &= (1 << INTERRUPT_PIN);
+    PORTB &= ~(1 << INTERRUPT_PIN); // set interrupt pin off
 
     _delay_ms(CAP_DISCHARGE_TIME_MS);
     
     DDRB &= ~(1 << INTERRUPT_PIN); //make interrupt pin input
     PORTB &= ~(1 << INTERRUPT_PIN); //disables pullup resistor on interrupt pin
 
+    DDRB &= ~(1 << NPN_TRANSISTOR_BASE_PIN);
+    PORTB &= ~(1 << NPN_TRANSISTOR_BASE_PIN);
+
     // enable pcint
-    GIMSK |= (1 << PCIE);
+    setupInterrupt();
 }
 
 void beep(){

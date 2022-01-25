@@ -1,9 +1,3 @@
-#include <avr/io.h>
-#include <avr/interrupt.h>
-#include <avr/wdt.h>
-#include <avr/sleep.h>
-#include <util/delay.h>
-
 #include "utilities.h"
 #include "projectConstants.h"
 
