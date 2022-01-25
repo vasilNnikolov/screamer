@@ -14,7 +14,6 @@ void goToSleep(){
 }
 
 void dischargeCapacitor(){
-    jjjjjjjjjjjjj
     DDRB |= (1 << NPN_TRANSISTOR_BASE_PIN);
     PORTB &= ~(1 << NPN_TRANSISTOR_BASE_PIN);
 
