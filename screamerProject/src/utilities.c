@@ -30,7 +30,7 @@ void dischargeCapacitor(){
 }
 
 void beep(){
-    short n_beeps = 1;
+    short n_beeps = 3;
     while(n_beeps > 0){
         PORTB |= (1 << BEEP_PIN_1) | (1 << BEEP_PIN_2);
         _delay_ms(BEEP_TIME_ON);
@@ -41,8 +41,8 @@ void beep(){
 }
 
 ISR(PCINT0_vect){
-    //disable pcint
-    GIMSK &= ~(1 << PCIE);
+    //disable interrupts 
+    cli();
 
     _delay_ms(500); // TODO remove after testing is complete
     dischargeCapacitor();
@@ -51,5 +51,4 @@ ISR(PCINT0_vect){
 
     // enable pcint
     setupInterrupt();
-
 }
