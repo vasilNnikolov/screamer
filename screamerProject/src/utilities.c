@@ -12,3 +12,20 @@ void goToSleep(){
     MCUCR |= (1 << SM1); // selecting power down
     sleep_cpu();
 }
+
+void dischargeCapacitor(){
+    //disable pcint
+    GIMSK &= ~(1 << PCIE);
+
+    DDRB |= (1 << INTERRUPT_PIN); // make interrupt pin output
+    PORTB &= (1 << INTERRUPT_PIN);
+
+    _delay_ms(CAP_DISCHARGE_TIME_MS);
+    
+    DDRB &= ~(1 << INTERRUPT_PIN); //make interrupt pin input
+    PORTB &= ~(1 << INTERRUPT_PIN); //disables pullup resistor on interrupt pin
+}
+
+ISR(PCINT0_vect){
+
+}
