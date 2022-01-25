@@ -8,15 +8,13 @@ void setupInterrupt(){
 }
 
 void goToSleep(){
-    MCUCR |= (1 << SE); //sleep enable
     MCUCR |= (1 << SM1); // selecting power down
+    MCUCR |= (1 << SE); //sleep enable
     sleep_cpu();
 }
 
 void dischargeCapacitor(){
-    //disable pcint
-    GIMSK &= ~(1 << PCIE);
-
+    jjjjjjjjjjjjj
     DDRB |= (1 << NPN_TRANSISTOR_BASE_PIN);
     PORTB &= ~(1 << NPN_TRANSISTOR_BASE_PIN);
 
@@ -30,9 +28,6 @@ void dischargeCapacitor(){
 
     DDRB &= ~(1 << NPN_TRANSISTOR_BASE_PIN);
     PORTB &= ~(1 << NPN_TRANSISTOR_BASE_PIN);
-
-    // enable pcint
-    setupInterrupt();
 }
 
 void beep(){
@@ -47,8 +42,16 @@ void beep(){
 }
 
 ISR(PCINT0_vect){
-    // it restarted for some reason
+    //disable pcint
+    GIMSK &= ~(1 << PCIE);
+
+    _delay_ms(500);
     dischargeCapacitor();
+
+    // enable pcint
+    setupInterrupt();
+
     beep();
+
     goToSleep();
 }
