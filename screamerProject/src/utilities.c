@@ -51,6 +51,4 @@ ISR(PCINT0_vect){
     setupInterrupt();
 
     beep();
-
-    goToSleep();
 }

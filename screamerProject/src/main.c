@@ -12,7 +12,7 @@ int main(){
     PORTB ^= (1 << BEEP_PIN_1) | (1 << BEEP_PIN_2);
 
     setupInterrupt();
-    goToSleep();
     while(1){
+        goToSleep();
     }
 }
