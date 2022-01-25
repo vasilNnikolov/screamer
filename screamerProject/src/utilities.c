@@ -44,11 +44,12 @@ ISR(PCINT0_vect){
     //disable pcint
     GIMSK &= ~(1 << PCIE);
 
-    _delay_ms(500);
+    _delay_ms(500); // TODO remove after testing is complete
     dischargeCapacitor();
+
+    beep();
 
     // enable pcint
     setupInterrupt();
 
-    beep();
 }
