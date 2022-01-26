@@ -5,6 +5,7 @@ void setupInterrupt(){
     sei();
     GIMSK |= (1 << PCIE);
     PCMSK |= (1 << INTERRUPT_PIN);
+    _delay_ms(500);
 }
 
 void goToSleep(){
@@ -30,26 +31,16 @@ void dischargeCapacitor(){
 }
 
 void beep(){
-    short n_beeps = 3;
+    short n_beeps = 1;
     while(n_beeps > 0){
-        PORTB |= (1 << BEEP_PIN_1) | (1 << BEEP_PIN_2);
+        PORTB ^= (1 << BEEP_PIN_1) | (1 << BEEP_PIN_2);
         _delay_ms(BEEP_TIME_ON);
-        PORTB &= ~((1 << BEEP_PIN_1) | (1 << BEEP_PIN_2));
+        PORTB ^= ((1 << BEEP_PIN_1) | (1 << BEEP_PIN_2));
         _delay_ms(BEEP_TIME_OFF);
         n_beeps--;
     }
 }
 
 ISR(PCINT0_vect){
-    //_delay_ms(500); // TODO remove after testing is complete
 
-    //disable interrupts 
-    cli();
-
-    dischargeCapacitor();
-
-    // enable pcint
-    setupInterrupt();
-
-    beep();
 }

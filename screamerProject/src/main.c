@@ -14,5 +14,15 @@ int main(){
     setupInterrupt();
     while(1){
         goToSleep();
+
+        //disable interrupts 
+        cli();
+
+        dischargeCapacitor();
+
+        beep();
+
+        // enable pcint
+        setupInterrupt();
     }
 }
