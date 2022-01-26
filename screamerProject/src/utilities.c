@@ -41,14 +41,15 @@ void beep(){
 }
 
 ISR(PCINT0_vect){
+    //_delay_ms(500); // TODO remove after testing is complete
+
     //disable interrupts 
     cli();
 
-    _delay_ms(500); // TODO remove after testing is complete
     dischargeCapacitor();
-
-    beep();
 
     // enable pcint
     setupInterrupt();
+
+    beep();
 }
