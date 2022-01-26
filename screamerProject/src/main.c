@@ -3,7 +3,6 @@
 
 
 int main(){
-    int seed = 69;
     _delay_ms(2000); // to debounce power supply
     //beep to indicate the circuit has started working
     DDRB |= (1 << BEEP_PIN_1) | (1 << BEEP_PIN_2);
@@ -12,7 +11,7 @@ int main(){
     PORTB ^= (1 << BEEP_PIN_1) | (1 << BEEP_PIN_2);
 
     setupInterrupt();
-    unsigned int periodsLeft = (3600*INITIAL_QUIET_PERIOD_H)/(TIME_INTERVAL);
+    unsigned int periodsLeft = (3600*INITIAL_QUIET_PERIOD_H)/(TIME_INTERVAL_S);
     while(1){
         goToSleep();
 

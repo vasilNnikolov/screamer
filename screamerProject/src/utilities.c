@@ -1,6 +1,6 @@
 #include "utilities.h"
 #include "projectConstants.h"
-
+int seed = 69;
 
 unsigned int getRandomInteger(int* seed){
     unsigned int a = 1687;
@@ -38,7 +38,8 @@ void dischargeCapacitor(){
 }
 
 void beep(){
-    short n_beeps = 1;
+    //short n_beeps = 1;
+    short n_beeps = getRandomInteger(&seed) % 5 + 3;
     while(n_beeps > 0){
         PORTB ^= (1 << BEEP_PIN_1) | (1 << BEEP_PIN_2);
         _delay_ms(BEEP_TIME_ON);
