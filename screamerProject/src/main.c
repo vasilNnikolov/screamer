@@ -18,11 +18,12 @@ int main(){
         //disable interrupts 
         cli();
 
+        _delay_ms(500); // to see the periods ticking
         dischargeCapacitor();
         if(periodsLeft <= 0){
             beep();
             //pick new periods left
-            periodsLeft = getRandomInteger(&seed)*MAX_TIME_BETWEEN_BEEPS_M*60/(255*TIME_INTERVAL_S); 
+            periodsLeft = getRandomInteger(&seed)*MAX_TIME_BETWEEN_BEEPS_M*60/(255*TIME_INTERVAL_S) + 1; 
         }
         periodsLeft--;
 

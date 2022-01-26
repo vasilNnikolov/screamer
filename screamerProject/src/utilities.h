@@ -7,6 +7,7 @@
 #include <avr/sleep.h>
 #include <util/delay.h>
 
+extern int seed;
 unsigned int getRandomInteger(int* seed);
 
 void setupInterrupt();
