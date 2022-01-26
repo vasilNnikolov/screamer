@@ -6,6 +6,7 @@
 #define BEEP_PIN_2 4 //pb4
 #define NPN_TRANSISTOR_BASE_PIN 1// pb1
 #define INTERRUPT_PIN 2// pb2, interrupt pin
+#define CAP_DISCHARGE_TIME_MS 500 //how much time does the capacitor discharge, in ms
 
 // timing settings
 #define TIME_INTERVAL 15 // the time interval of the external clock in seconds 
