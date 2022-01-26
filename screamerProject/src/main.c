@@ -1,12 +1,7 @@
-#include <avr/io.h>
-#include <avr/interrupt.h>
-#include <avr/wdt.h>
-#include <avr/sleep.h>
-#include <util/delay.h>
-
 #include "utilities.h"
 #include "projectConstants.h"
 
+<<<<<<< HEAD
 unsigned int periods_left;
 void setPCINT(){
     //setup PCINT on INTERRUPT_PIN
@@ -79,6 +74,8 @@ ISR(PCINT0_vect) {
     enterSleep();
 }
 
+=======
+>>>>>>> main
 
 int main(){
     _delay_ms(2000); // to debounce power supply
@@ -89,9 +86,24 @@ int main(){
     _delay_ms(4000);
     PORTB ^= (1 << BEEP_PIN_1) | (1 << BEEP_PIN_2);
 
+<<<<<<< HEAD
     periods_left = (unsigned int)(INITIAL_QUIET_PERIOD_DAYS*24*3600/TIME_INTERVAL);
     setPCINT();    
     enterSleep();
+=======
+    setupInterrupt();
+>>>>>>> main
     while(1){
+        goToSleep();
+
+        //disable interrupts 
+        cli();
+
+        dischargeCapacitor();
+
+        beep();
+
+        // enable pcint
+        setupInterrupt();
     }
 }

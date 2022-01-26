@@ -1,7 +1,19 @@
 #ifndef UTILITIES_H
 #define UTILITIES_H
 
+#include <avr/io.h>
+#include <avr/interrupt.h>
+#include <avr/wdt.h>
+#include <avr/sleep.h>
+#include <util/delay.h>
+
 unsigned int getRandomInteger();
+
+void setupInterrupt();
+
+void goToSleep();
+
+void dischargeCapacitor();
 
 void beep();
 #endif
