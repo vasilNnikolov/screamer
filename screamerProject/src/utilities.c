@@ -1,13 +1,12 @@
 #include "utilities.h"
 #include "projectConstants.h"
 
-unsigned int seed = 69;
 
-unsigned int getRandomInteger(){
+unsigned int getRandomInteger(int* seed){
     unsigned int a = 1687;
     unsigned int m = 257;
-    seed = (a * seed) % m;
-    return seed;
+    *seed = (a * (*seed)) % m;
+    return *seed;
 }
 void setupInterrupt(){
     sei();
