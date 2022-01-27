@@ -21,7 +21,7 @@ int main(){
         dischargeCapacitor();
 
         beep();
-
+        
         // enable pcint
         setupInterrupt();
     }

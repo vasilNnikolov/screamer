@@ -1,9 +1,13 @@
 {
 	"folders": [
 		{
-			"name": "screamerProject",
 			"path": ".."
 		}
 	],
-	"settings": {}
+	"settings": {
+		"files.associations": {
+			"wdt.h": "c",
+			"sleep.h": "c"
+		}
+	}
 }
