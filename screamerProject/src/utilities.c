@@ -9,15 +9,38 @@ unsigned int getRandomInteger(int* seed){
     return *seed;
 }
 void setupInterrupt(){
-    sei();
+    // sei();
     GIMSK |= (1 << PCIE);
     PCMSK |= (1 << INTERRUPT_PIN);
-    _delay_ms(500);
 }
 
 void goToSleep(){
     set_sleep_mode(SLEEP_MODE_PWR_DOWN);
+
+    // disable ADC
+
+
+
+    // disable analog comparator
+
+
+
+    // disable internal voltage reference
+
+
+
+    // disable watchdog timer
+
+
+
+    // disable port pins idk how?
+
+
+
+    // disable BOD and go to sleep
     sleep_enable();
+    sleep_bod_disable();
+    sei();
     sleep_cpu();
 }
 

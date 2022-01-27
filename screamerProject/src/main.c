@@ -18,7 +18,7 @@ int main(){
         //disable interrupts 
         cli();
 
-        _delay_ms(500); // to see the periods ticking
+        _delay_ms(100); // to see the periods ticking
         dischargeCapacitor();
         if(periodsLeft <= 0){
             beep();
