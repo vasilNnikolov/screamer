@@ -18,24 +18,17 @@ void goToSleep(){
     set_sleep_mode(SLEEP_MODE_PWR_DOWN);
 
     // disable ADC
-
-
-
-    // disable analog comparator
-
-
-
-    // disable internal voltage reference
-
-
+    ADCSRA &= ~(1 << ADEN); //disable adc
+    PRR |= (1 << PRADC); // stops power to adc
 
     // disable watchdog timer
+    wdt_disable();
 
-
-
-    // disable port pins idk how?
-
-
+    // disable unused port pins
+    for(short i = 0; i < sizeof(unusedPins)/sizeof(unusedPins[0]); i++){
+        DDRB &= ~(1 << unusedPins[i]); // sets it as input
+        PORTB |= (1 << unusedPins[i]); // set pullup resistor to define voltage level, to reduce power consumption
+    }
 
     // disable BOD and go to sleep
     sleep_enable();

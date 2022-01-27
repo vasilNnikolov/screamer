@@ -1,6 +1,12 @@
 #ifndef PROJECT_CONSTANTS_H
 #define PROJECT_CONSTANTS_H
 
+#include <avr/io.h>
+#include <avr/interrupt.h>
+#include <avr/wdt.h>
+#include <avr/sleep.h>
+#include <util/delay.h>
+
 // physical pin settings
 #define BEEP_PIN_1 0 //pb0
 #define BEEP_PIN_2 4 //pb4
@@ -15,4 +21,6 @@
 #define BEEP_TIME_ON 50 //time of one beep in ms
 #define BEEP_TIME_OFF 200 //time between beeps in ms
 
+
+const short unusedPins[] = {PB3};
 #endif
