@@ -22,5 +22,4 @@
 #define BEEP_TIME_OFF 200 //time between beeps in ms
 
 
-const short unusedPins[] = {PB3};
 #endif
