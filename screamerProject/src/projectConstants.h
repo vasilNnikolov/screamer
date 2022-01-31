@@ -8,7 +8,7 @@
 #include <util/delay.h>
 
 // physical pin settings
-#define BEEP_PIN_1 0 //pb0
+#define BEEP_PIN_1 3 //pb3
 #define BEEP_PIN_2 4 //pb4
 #define NPN_TRANSISTOR_BASE_PIN 1// pb1
 #define INTERRUPT_PIN 2// pb2, interrupt pin
