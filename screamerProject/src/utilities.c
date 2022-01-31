@@ -2,7 +2,7 @@
 #include "projectConstants.h"
 int seed = 69;
 
-const short unusedPins[] = {PB3};
+const short unusedPins[] = {PB0};
 unsigned int getRandomInteger(int* seed){
     unsigned int a = 1687;
     unsigned int m = 257;

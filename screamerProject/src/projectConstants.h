@@ -18,8 +18,8 @@
 #define TIME_INTERVAL_S 22 // the time interval of the external clock in seconds 
 #define MAX_TIME_BETWEEN_BEEPS_M 2 // max time between the beeps in minutes, average is half that
 #define INITIAL_QUIET_PERIOD_H 0
-#define BEEP_TIME_ON 50 //time of one beep in ms
-#define BEEP_TIME_OFF 200 //time between beeps in ms
+#define BEEP_TIME_ON 100 //time of one beep in ms
+#define BEEP_TIME_OFF 100 //time between beeps in ms
 
 
 #endif
